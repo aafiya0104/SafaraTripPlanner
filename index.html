@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Safara Trip Planner</title>
+
+    <!-- Dynamically load Google Maps API key using Vite env variable -->
+    <script type="module">
+      const script = document.createElement('script');
+      script.src = `https://maps.googleapis.com/maps/api/js?key=${import.meta.env.VITE_GOOGLE_GEMINI_AI_API_KEY}&libraries=places&loading=async`;
+      script.async = true;
+      document.head.appendChild(script);
+    </script>
+
+    <!-- Load the new Extended Component library -->
+    <script
+      type="module"
+      src="https://unpkg.com/@googlemaps/extended-component-library/dist/index.umd.js"
+    ></script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
