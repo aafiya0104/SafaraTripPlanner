@@ -19,6 +19,7 @@ import {
 import { FcGoogle } from "react-icons/fc";
 import { supabase } from "../service/supabaseConfig";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import { useNavigate } from "react-router-dom";
 
 function CreateTrip() {
   const [query, setQuery] = useState("");
@@ -31,10 +32,13 @@ function CreateTrip() {
   const [loading, setLoading] = useState(false);
   const [user, setUser] = useState(null);
   const accessToken = import.meta.env.VITE_LOCATIONIQ_API_KEY;
+  const navigate = useNavigate();
 
   useEffect(() => {
     const getUser = async () => {
-      const { data: { user } } = await supabase.auth.getUser();
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
       setUser(user);
     };
     getUser();
@@ -103,14 +107,14 @@ function CreateTrip() {
   const signInWithGoogle = async () => {
     try {
       const { data, error } = await supabase.auth.signInWithOAuth({
-        provider: 'google',
+        provider: "google",
         options: {
           redirectTo: window.location.origin, // Simple redirect to home
           queryParams: {
-            access_type: 'offline',
-            prompt: 'consent',
-          }
-        }
+            access_type: "offline",
+            prompt: "consent",
+          },
+        },
       });
 
       if (error) {
@@ -120,7 +124,6 @@ function CreateTrip() {
       }
 
       console.log("Google OAuth initiated successfully");
-      
     } catch (error) {
       console.error("Error with Google OAuth:", error);
       toast.error("Failed to sign in with Google");
@@ -167,7 +170,7 @@ function CreateTrip() {
     };
 
     setLoading(true);
-    
+
     try {
       const FINAL_PROMPT = AI_PROMPT.replace(
         "{location}",
@@ -180,7 +183,7 @@ function CreateTrip() {
 
       const result = await chatSession.sendMessage(FINAL_PROMPT);
       console.log("AI Response:", result?.response?.text());
-      
+
       await SaveAiTrip(result?.response?.text(), tripFormData);
     } catch (error) {
       console.error("Error generating trip:", error);
@@ -200,12 +203,13 @@ function CreateTrip() {
       }
 
       console.log("Authenticated user:", user);
-      
+
       const docId = Date.now().toString();
 
       let parsedTripData;
       try {
-        parsedTripData = typeof TripData === 'string' ? JSON.parse(TripData) : TripData;
+        parsedTripData =
+          typeof TripData === "string" ? JSON.parse(TripData) : TripData;
       } catch (parseError) {
         console.error("Error parsing trip data:", parseError);
         parsedTripData = TripData; // Use as is if parsing fails
@@ -226,6 +230,7 @@ function CreateTrip() {
       } else {
         console.log("Trip saved successfully:", data);
         toast.success("Trip generated successfully!");
+        navigate(`/view-trip/${docId}`);
       }
     } catch (error) {
       console.error("Error saving trip:", error);
@@ -234,17 +239,19 @@ function CreateTrip() {
   };
 
   useEffect(() => {
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange(async (event, session) => {
       console.log("Auth state changed:", event, session);
-      
-      if (event === 'SIGNED_IN' && session) {
+
+      if (event === "SIGNED_IN" && session) {
         console.log("User signed in:", session.user);
         setUser(session.user);
         setOpenDialog(false);
         toast.success("Successfully signed in!");
       }
-      
-      if (event === 'SIGNED_OUT') {
+
+      if (event === "SIGNED_OUT") {
         setUser(null);
         console.log("User signed out");
       }
@@ -367,9 +374,15 @@ function CreateTrip() {
             <DialogTitle>Sign In Required</DialogTitle>
             <DialogDescription>
               <div className="text-center">
-                <img src="/safaralogo.png" alt="Safari Logo" className="mx-auto mb-4" />
+                <img
+                  src="/safaralogo.png"
+                  alt="Safari Logo"
+                  className="mx-auto mb-4"
+                />
                 <h2 className="font-bold text-lg mt-7">Sign In with Google</h2>
-                <p className="mb-4">Sign in with Google authentication to continue.</p>
+                <p className="mb-4">
+                  Sign in with Google authentication to continue.
+                </p>
                 <Button
                   onClick={signInWithGoogle}
                   className="w-full mt-5 flex gap-4 items-center justify-center"
