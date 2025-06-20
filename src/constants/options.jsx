@@ -50,4 +50,43 @@ export const SelectBudgetList = [
   },
 ];
 
-export const AI_PROMPT = 'Generate Safe Women\'s Travel Plan for Location : {location}, for {totalDays} Days for {traveler} with a {budget} budget. Give me a safe women-friendly Hotels options list with HotelName, Hotel address, Price, hotel image url, geo coordinates, rating, descriptions and suggest itinerary with placeName, Place Details, Place Image Url, Geo coordinates, ticket Pricing, Time to travel each of the location for {totalDays} days with each day plan with safest time to visit in JSON format.';
+export const AI_PROMPT = `Generate Safe Women's Travel Plan for Location: {location}, for {totalDays} Days for {traveler} with a {budget} budget.
+
+CRITICAL REQUIREMENTS:
+- You MUST provide EXACTLY 4 hotel recommendations - no more, no less
+- Count the hotels before responding: 1, 2, 3, 4 - ensure all 4 are included
+- If fewer than 4 hotels exist for the budget/location, create budget alternatives or nearby options
+
+HOTEL REQUIREMENTS:
+Provide exactly 4 safe women-friendly Hotels with:
+- HotelName
+- HotelAddress  
+- PriceRange
+- HotelImageUrl
+- GeoCoordinates (latitude, longitude)
+- Rating
+- Description
+
+ITINERARY REQUIREMENTS:
+Suggest itinerary for {totalDays} days with each day plan including:
+- PlaceName
+- PlaceDetails
+- PlaceImageUrl
+- GeoCoordinates
+- TicketPricing
+- TimeToTravel
+
+OUTPUT FORMAT: Respond ONLY with valid JSON format. No additional text before or after the JSON.
+
+EXAMPLE HOTEL STRUCTURE:
+{
+  "hotels": [
+    {"HotelName": "Hotel 1", ...},
+    {"HotelName": "Hotel 2", ...},
+    {"HotelName": "Hotel 3", ...},
+    {"HotelName": "Hotel 4", ...}
+  ],
+  "itinerary": {...}
+}
+
+Remember: Exactly 4 hotels required. Count them: 1, 2, 3, 4.`;

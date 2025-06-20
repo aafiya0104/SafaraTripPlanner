@@ -194,49 +194,56 @@ function CreateTrip() {
   };
 
   const SaveAiTrip = async (TripData, tripFormData) => {
+  try {
+    if (!user) {
+      console.error("No authenticated user");
+      toast.error("Authentication required. Please sign in again.");
+      setOpenDialog(true);
+      return;
+    }
+
+    const docId = Date.now().toString();
+
+    let parsedTripData;
     try {
-      if (!user) {
-        console.error("No authenticated user");
-        toast.error("Authentication required. Please sign in again.");
-        setOpenDialog(true);
+      const jsonMatch = TripData.match(/\{[\s\S]*\}/);
+      parsedTripData = jsonMatch ? JSON.parse(jsonMatch[0]) : null;
+
+      if (!parsedTripData) {
+        console.error("JSON not found in AI response");
+        toast.error("Invalid AI response. Please try again.");
         return;
       }
 
-      console.log("Authenticated user:", user);
-
-      const docId = Date.now().toString();
-
-      let parsedTripData;
-      try {
-        parsedTripData =
-          typeof TripData === "string" ? JSON.parse(TripData) : TripData;
-      } catch (parseError) {
-        console.error("Error parsing trip data:", parseError);
-        parsedTripData = TripData; // Use as is if parsing fails
-      }
-
-      const { data, error } = await supabase.from("AITrips").insert([
-        {
-          id: docId,
-          userEmail: user.email,
-          userSelection: tripFormData,
-          tripData: parsedTripData,
-        },
-      ]);
-
-      if (error) {
-        console.error("Supabase error:", error);
-        toast.error("Failed to save trip data: " + error.message);
-      } else {
-        console.log("Trip saved successfully:", data);
-        toast.success("Trip generated successfully!");
-        navigate(`/view-trip/${docId}`);
-      }
-    } catch (error) {
-      console.error("Error saving trip:", error);
-      toast.error("Failed to save trip data");
+      console.log("Hotels count:", parsedTripData?.hotels?.length); 
+    } catch (parseError) {
+      console.error("Error parsing trip data:", parseError);
+      toast.error("Failed to parse trip data");
+      return;
     }
-  };
+
+    const { data, error } = await supabase.from("AITrips").insert([
+      {
+        id: docId,
+        userEmail: user.email,
+        userSelection: tripFormData,
+        tripData: parsedTripData,
+      },
+    ]);
+
+    if (error) {
+      console.error("Supabase error:", error);
+      toast.error("Failed to save trip data: " + error.message);
+    } else {
+      console.log("Trip saved successfully:", data);
+      toast.success("Trip generated successfully!");
+      navigate(`/view-trip/${docId}`);
+    }
+  } catch (error) {
+    console.error("Error saving trip:", error);
+    toast.error("Failed to save trip data");
+  }
+};
 
   useEffect(() => {
     const {
