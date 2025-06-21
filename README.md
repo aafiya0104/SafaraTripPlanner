@@ -1,12 +1,82 @@
-# React + Vite
+# 🌍 Safara – AI Trip Planner
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Safara is an AI-powered trip planner that helps travelers plan **safe, efficient, and personalized trips** in seconds. Just answer **4 simple questions**, and Safara will generate:
 
-Currently, two official plugins are available:
+- 🏨 Curated **hotel recommendations**
+- 📍 A daily **plan of must-visit places**
+- 💸 Estimated **budget and trip duration**
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 📽 Demo Video
 
-## Expanding the ESLint configuration
+[![Watch the demo](https://img.youtube.com/vi/pfAkTJF4EmY/maxresdefault.jpg)](https://youtu.be/pfAkTJF4EmY)
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+
+---
+
+## ✨ Features
+
+- 🧠 **AI-Based Itinerary Generation**  
+  Get tailored trip plans using Gemini AI, based on your preferences and travel goals.
+
+- 🏨 **Smart Hotel Recommendations**  
+  Discover the best accommodations with verified data and user-focused filtering.
+
+- 📅 **Daily Activity Plan**  
+  Explore must-visit attractions organized into a daily schedule.
+
+- ⏳ **Time & Budget Estimates**  
+  Receive accurate estimates for time taken and overall costs.
+
+- 🔐 **Safe Trip Planning**  
+  Designed to prioritize travel safety and convenience.
+
+---
+
+## 🚀 Tech Stack
+
+| Technology       | Purpose                                     |
+|------------------|---------------------------------------------|
+| **React + Vite** | Frontend framework with blazing-fast builds |
+| **Tailwind CSS** | Utility-first CSS for custom styling        |
+| **shadcn/ui**    | Beautifully designed UI components          |
+| **JavaScript**   | App logic and interactivity                 |
+| **Supabase**     | Backend-as-a-service for auth & DB access   |
+| **PostgreSQL**   | Cloud-hosted relational database            |
+| **Gemini API**   | Generative AI for planning and insights     |
+| **Vercel**       | Continuous Deployment & Hosting             |
+
+---
+
+## 🛠️ How It Works
+
+1. **User answers 4 simple questions**:
+   - Destination
+   - Days
+   - Budget
+   - People 
+
+2. **AI processes input** via Gemini API.
+
+3. **Output generated**:
+   - Hotels with links, ratings, and prices
+   - Day-wise travel plan
+   - Time & budget breakdown
+
+4. **Data saved** in Supabase for reference and re-use.
+
+---
+
+## 🔧 Installation
+
+```bash
+# Clone the repository
+git clone https://github.com/yourusername/safara-trip-planner.git
+cd safara-trip-planner
+
+# Install dependencies
+npm install
+
+# Start the development server
+npm run dev
+
+
