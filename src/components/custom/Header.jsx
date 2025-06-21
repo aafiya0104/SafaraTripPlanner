@@ -77,9 +77,15 @@ function Header() {
       <div>
         {user ? (
           <div className="flex items-center gap-3">
-            <Button variant="outline" className="rounded-full">
-              My Trips
-            </Button>
+           <a href='/create-trip'>
+           <Button varient='outline'
+           className='rounded-full'>Create Trip
+            </Button></a>
+            <a href="/my-trips">
+              <Button variant="outline" className="rounded-full">
+                My Trips
+              </Button>
+            </a>
             <Popover>
               <PopoverTrigger>
                 <img
@@ -89,10 +95,7 @@ function Header() {
                 />
               </PopoverTrigger>
               <PopoverContent>
-                <h2
-                  className="cursor-pointer text-sm"
-                  onClick={handleLogout}
-                >
+                <h2 className="cursor-pointer text-sm" onClick={handleLogout}>
                   Logout
                 </h2>
               </PopoverContent>
@@ -103,7 +106,6 @@ function Header() {
         )}
       </div>
 
-      {/* Sign In Dialog */}
       <Dialog open={openDialog} onOpenChange={setOpenDialog}>
         <DialogContent>
           <DialogHeader>

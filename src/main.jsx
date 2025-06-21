@@ -8,26 +8,32 @@ import Layout from "./layout";
 import App from "./App";
 import CreateTrip from "./create-trip";
 import ViewTrip from "./view-trip/[tripId]";
+import path from "path";
+import MyTrips from "./my-trips";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Layout />, 
+    element: <Layout />,
     children: [
       {
         index: true,
-        element: <App />
+        element: <App />,
       },
       {
         path: "create-trip",
-        element: <CreateTrip />
+        element: <CreateTrip />,
       },
       {
         path: "view-trip/:tripId",
-        element: <ViewTrip />
-      }
-    ]
-  }
+        element: <ViewTrip />,
+      },
+      {
+        path: "my-trips",
+        element: <MyTrips />,
+      },
+    ],
+  },
 ]);
 
 createRoot(document.getElementById("root")).render(
