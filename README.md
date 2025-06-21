@@ -8,9 +8,8 @@ Safara is an AI-powered trip planner that helps travelers plan **safe, efficient
 
 ## 📽 Demo Video
 
-<a href="https://youtu.be/pfAkTJF4EmY" target="_blank">
-  <img src="https://img.youtube.com/vi/pfAkTJF4EmY/0.jpg" alt="Safara AI Trip Planner Demo" width="100%" />
-</a>
+[![Watch the demo](https://img.youtube.com/vi/pfAkTJF4EmY/maxresdefault.jpg)](https://youtu.be/pfAkTJF4EmY)
+
 
 ---
 
