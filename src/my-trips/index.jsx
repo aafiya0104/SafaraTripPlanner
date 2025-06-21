@@ -35,7 +35,7 @@ function MyTrips() {
 
   return (
     <div className="sm:px-10 md:px-32 lg:px-56 xl:px-72 px-5 mt-10">
-      <h2 className="font-bold text-3xl mb-6">My Trips</h2>
+      <h2 className="font-bold text-xl md:text-5xl lg:text-4xl mb-5 leading-tight bg-gradient-to-r from-amber-700 via-yellow-600 to-amber-800 bg-clip-text text-transparent">My Trips</h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
         {userTrips.length > 0 ? (
           userTrips.map((trip, index) => (

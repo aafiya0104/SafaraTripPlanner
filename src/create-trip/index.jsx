@@ -109,7 +109,7 @@ function CreateTrip() {
       const { data, error } = await supabase.auth.signInWithOAuth({
         provider: "google",
         options: {
-          redirectTo: window.location.origin, // Simple redirect to home
+          redirectTo: window.location.origin,
           queryParams: {
             access_type: "offline",
             prompt: "consent",
@@ -194,56 +194,56 @@ function CreateTrip() {
   };
 
   const SaveAiTrip = async (TripData, tripFormData) => {
-  try {
-    if (!user) {
-      console.error("No authenticated user");
-      toast.error("Authentication required. Please sign in again.");
-      setOpenDialog(true);
-      return;
-    }
-
-    const docId = Date.now().toString();
-
-    let parsedTripData;
     try {
-      const jsonMatch = TripData.match(/\{[\s\S]*\}/);
-      parsedTripData = jsonMatch ? JSON.parse(jsonMatch[0]) : null;
-
-      if (!parsedTripData) {
-        console.error("JSON not found in AI response");
-        toast.error("Invalid AI response. Please try again.");
+      if (!user) {
+        console.error("No authenticated user");
+        toast.error("Authentication required. Please sign in again.");
+        setOpenDialog(true);
         return;
       }
 
-      console.log("Hotels count:", parsedTripData?.hotels?.length); 
-    } catch (parseError) {
-      console.error("Error parsing trip data:", parseError);
-      toast.error("Failed to parse trip data");
-      return;
-    }
+      const docId = Date.now().toString();
 
-    const { data, error } = await supabase.from("AITrips").insert([
-      {
-        id: docId,
-        userEmail: user.email,
-        userSelection: tripFormData,
-        tripData: parsedTripData,
-      },
-    ]);
+      let parsedTripData;
+      try {
+        const jsonMatch = TripData.match(/\{[\s\S]*\}/);
+        parsedTripData = jsonMatch ? JSON.parse(jsonMatch[0]) : null;
 
-    if (error) {
-      console.error("Supabase error:", error);
-      toast.error("Failed to save trip data: " + error.message);
-    } else {
-      console.log("Trip saved successfully:", data);
-      toast.success("Trip generated successfully!");
-      navigate(`/view-trip/${docId}`);
+        if (!parsedTripData) {
+          console.error("JSON not found in AI response");
+          toast.error("Invalid AI response. Please try again.");
+          return;
+        }
+
+        console.log("Hotels count:", parsedTripData?.hotels?.length);
+      } catch (parseError) {
+        console.error("Error parsing trip data:", parseError);
+        toast.error("Failed to parse trip data");
+        return;
+      }
+
+      const { data, error } = await supabase.from("AITrips").insert([
+        {
+          id: docId,
+          userEmail: user.email,
+          userSelection: tripFormData,
+          tripData: parsedTripData,
+        },
+      ]);
+
+      if (error) {
+        console.error("Supabase error:", error);
+        toast.error("Failed to save trip data: " + error.message);
+      } else {
+        console.log("Trip saved successfully:", data);
+        toast.success("Trip generated successfully!");
+        navigate(`/view-trip/${docId}`);
+      }
+    } catch (error) {
+      console.error("Error saving trip:", error);
+      toast.error("Failed to save trip data");
     }
-  } catch (error) {
-    console.error("Error saving trip:", error);
-    toast.error("Failed to save trip data");
-  }
-};
+  };
 
   useEffect(() => {
     const {
@@ -269,7 +269,12 @@ function CreateTrip() {
 
   return (
     <div className="sm:px-10 md:px-32 lg:px-56 xl:px-72 px-5 mt-10">
-      <h2 className="font-bold text-3xl">Tell us your travel preferences</h2>
+      <h2
+        className="font-bold text-xl md:text-5xl lg:text-5xl leading-tight bg-gradient-to-r from-amber-700 via-yellow-600 to-amber-800 bg-clip-text text-transparent
+    "
+      >
+        Tell us your travel preferences
+      </h2>
       <p className="text-gray-500 mt-3">
         Just provide some basic information, and our trip planner will generate
         a customized itinerary based on your preferences.
