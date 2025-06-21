@@ -1,3 +1,7 @@
+## 🔗 Live Demo
+
+[Click here to try Safara AI Trip Planner](https://safara-trip-planner.vercel.app/)
+
 # 🌍 Safara – AI Trip Planner
 
 Safara is an AI-powered trip planner that helps travelers plan **safe, efficient, and personalized trips** in seconds. Just answer **4 simple questions**, and Safara will generate:
